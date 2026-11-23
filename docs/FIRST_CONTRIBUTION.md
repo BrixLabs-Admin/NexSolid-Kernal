@@ -21,6 +21,6 @@ Fork the repository, create a branch, and change only what is needed. For geomet
 Open a pull request using the template. Explain the change, the OCCT/compiler versions you tested, and the command output.
 
 ## Important licensing note
-The license for NexSolid's original starter code is still under review. **Please discuss code contributions with the maintainer before submitting substantial code** until the license and contribution terms are finalized.
+The project owner's original NexSolid starter code is licensed under LGPL 2.1 with the Open CASCADE additional exception. Read [LICENSE](../LICENSE) and [CONTRIBUTING](../CONTRIBUTING.md) before contributing. The planned modified OCCT import still needs source and license review. Discuss substantial changes with the maintainer before opening a pull request.
 
 Need help? Open a question issue describing where you got stuck. Be courteous and never post secrets or proprietary models.
