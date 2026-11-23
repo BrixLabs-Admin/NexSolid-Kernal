@@ -18,4 +18,4 @@ If a future NexSolid Kernel release distributes OCCT binaries or modified OCCT c
 - Do not vendor third-party code without first reviewing its license and recording its source.
 - Keep third-party notices with any future redistributable release.
 
-The license for original NexSolid Kernel code is still pending owner selection. See the License section in the README.
+The project owner's original NexSolid starter code is covered by the repository's [LICENSE](../LICENSE), with the full [LGPL 2.1 text](../LICENSE_LGPL_21.txt) and [OCCT exception](../OCCT_LGPL_EXCEPTION.txt). Imported OCCT source must retain its own original notices and attribution. See [Licensing plan](LICENSING_PLAN.md).
