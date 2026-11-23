@@ -1,0 +1,39 @@
+NexSolid Kernel — Licensing
+===========================
+
+Unless a particular file carries a different license or copyright notice,
+original NexSolid Kernel source code made available by the repository owner
+is licensed under the GNU Lesser General Public License version 2.1
+(LGPL-2.1-only), with the Open CASCADE additional exception (version 1.0)
+granted for those original NexSolid files.
+
+The complete license texts are included in:
+  - LICENSE_LGPL_21.txt
+  - OCCT_LGPL_EXCEPTION.txt
+
+SPDX expression for original files covered by both permissions:
+  LGPL-2.1-only WITH OCCT-exception-1.0
+
+Open CASCADE Technology (OCCT)
+------------------------------
+OCCT itself is copyright its respective rightsholders. Its source code,
+including modified OCCT files imported into this project, retains applicable
+upstream copyrights, notices, and licensing conditions. The license above
+does not replace, override, or remove those notices. Before importing a
+modified OCCT source tree, include its original license and exception files
+and preserve file-level attribution and modification notices.
+
+Contributed code
+----------------
+Contributors retain ownership of their own original contributions unless
+they separately agree otherwise. A contribution may be accepted only if
+its contributor has authority to submit it under terms compatible with the
+license applying to the affected files. For new original NexSolid files,
+contributors should explicitly confirm acceptance of the license and
+exception named above.
+
+Other components, third-party software, trademarks, and applications may
+be subject to separate terms. In particular, this license does not grant
+rights to the FreeSCAD Pro application or to third-party marks.
+
+No warranty is provided, to the extent permitted by the applicable license.
