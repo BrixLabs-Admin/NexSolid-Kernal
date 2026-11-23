@@ -4,7 +4,7 @@ Thanks for considering a contribution. The project is at its foundation stage, s
 
 ## Before you start
 
-1. Read the [Getting Started guide](docs/GETTING_STARTED.md).
+1. Read the [Getting Started guide](docs/GETTING_STARTED.md) and [first contribution guide](docs/FIRST_CONTRIBUTION.md). AI coding assistance is optional; see [AI contribution guidance](docs/AI_CONTRIBUTIONS.md).
 2. Check [open issues](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues) and the [roadmap](ROADMAP.md).
 3. For a larger change, open an issue first so the scope and design can be discussed.
 4. Do not submit code copied or adapted from another project unless its origin and license are clear.
