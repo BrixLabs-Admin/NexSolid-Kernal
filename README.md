@@ -50,6 +50,4 @@ NexSolid Kernel uses OCCT APIs and does not bundle OCCT. See [Dependency and thi
 
 ## License
 
-**The project's license has not been selected yet.** No license file is present. Until the project owner adds one, the source remains under default copyright and reuse permissions are not granted. Please do not redistribute or incorporate this project's code into other projects yet.
-
-OCCT is a separate dependency with its own license terms; see [Dependency and third-party notices](docs/DEPENDENCIES.md).
+Original NexSolid Kernel starter code is licensed under **LGPL 2.1 with the Open CASCADE additional exception**, except where file-specific notices say otherwise. Read [LICENSE](LICENSE), [the LGPL license text](LICENSE_LGPL_21.txt), and [the OCCT exception](OCCT_LGPL_EXCEPTION.txt). OCCT-derived source must preserve its original copyright/license notices, and third-party components may have separate terms. See [Dependency and third-party notices](docs/DEPENDENCIES.md) and [Licensing plan](docs/LICENSING_PLAN.md).
