@@ -7,7 +7,8 @@ This roadmap describes direction, not promised release dates. Priorities may cha
 - [x] Publish project overview and first-time setup.
 - [x] Add CMake and OCCT starter example.
 - [x] Add automated smoke test and GitHub Actions workflow.
-- [ ] Select and publish the project license and contribution terms.
+- [x] Publish a default license for original NexSolid starter code and initial contribution rules.
+- [ ] Audit the modified OCCT source tree and finalize file-level license/attribution notices before importing it.
 - [ ] Add a small set of well-scoped newcomer issues.
 
 ## Phase 1 — Stable kernel basics
