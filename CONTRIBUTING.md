@@ -37,6 +37,6 @@ Use the pull request template. Include:
 
 Be respectful and constructive in reviews. Maintainers may ask for revisions or a smaller scope.
 
-## Licensing status
+## Licensing contributions
 
-The repository owner has not selected a project license yet. No license file or contributor license agreement is currently in place. Please do not contribute code copied from third parties, and ask before submitting material that you do not own. The project license and contribution terms should be made clear before the first public release.
+Read [LICENSE](LICENSE) and [Licensing plan](docs/LICENSING_PLAN.md) before contributing. For new original NexSolid source files, contributions must be offered under **LGPL 2.1 with the Open CASCADE additional exception (version 1.0)** unless a file explicitly says otherwise and maintainers approve. Modified OCCT files must retain their original copyright/license headers and applicable modification notices. You retain copyright to your own work, but must have the right to license it under the relevant terms. Do not submit copied third-party or AI-generated material unless you have checked its provenance, permissions, and correctness. For substantial contributions or commercial relicensing discussions, contact maintainers before submitting.
