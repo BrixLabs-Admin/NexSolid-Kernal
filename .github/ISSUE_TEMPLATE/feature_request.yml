@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest a scoped improvement to NexSolid Kernel.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "For large changes, open a discussion issue before starting implementation."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What user or developer need does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior you would like.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches did you consider?
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and examples
+      description: Share use cases, constraints, and how success could be checked.
