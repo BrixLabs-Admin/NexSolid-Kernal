@@ -36,7 +36,7 @@ See [Getting Started](docs/GETTING_STARTED.md) for platform notes and troublesho
 
 ## Contributing
 
-New contributors are welcome. Start with [good first issues](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22), read [CONTRIBUTING.md](CONTRIBUTING.md), and follow [Getting Started](docs/GETTING_STARTED.md).
+New contributors are welcome. Start with [good first issues](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22), read [CONTRIBUTING.md](CONTRIBUTING.md), and follow [Getting Started](docs/GETTING_STARTED.md) and the [first contribution guide](docs/FIRST_CONTRIBUTION.md). Optional AI-assisted development guidance is available in [Using AI assistants](docs/AI_CONTRIBUTIONS.md).
 
 Please report bugs through the bug report form and propose larger changes through an issue before opening a pull request.
 
