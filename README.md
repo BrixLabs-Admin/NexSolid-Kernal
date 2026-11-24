@@ -17,11 +17,10 @@ This repository covers NexSolid Kernel only.
 Requirements: CMake 3.20+, a C++17 compiler, and an OCCT development installation that includes Foundation, Modeling Data, and Modeling Algorithms.
 
 ```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --parallel
-ctest --test-dir build --output-on-failure
-./build/nexsolid_demo
+bash scripts/build-test.sh
 ```
+
+The script configures CMake, compiles NexSolid, runs CTest and launches the CLI demo. For individual commands, Debug builds and isolated testing of a patched OCCT installation, see [Getting Started](docs/GETTING_STARTED.md). The current smoke test only checks basic box geometry; more extensive regression testing is tracked in [issue #19](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues/19).
 
 See [Getting Started](docs/GETTING_STARTED.md) for platform notes and troubleshooting.
 
