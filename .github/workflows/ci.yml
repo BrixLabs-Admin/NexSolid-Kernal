@@ -33,3 +33,6 @@ jobs:
 
       - name: Test
         run: ctest --test-dir build --output-on-failure
+
+      - name: Validate contributor quickstart
+        run: bash scripts/build-test.sh
