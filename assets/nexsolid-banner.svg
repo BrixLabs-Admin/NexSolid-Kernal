@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1916" height="821" viewBox="0 0 1916 821" role="img" aria-labelledby="banner-title banner-desc">
+<title id="banner-title">NexSolid Kernel</title>
+<desc id="banner-desc">From open source to world-class CAD geometry. Metallic text on dark graphite, with ember-red technical accents.</desc>
+<defs>
+  <radialGradient id="bg" cx="49%" cy="40%" r="90%">
+    <stop offset="0" stop-color="#202124"/><stop offset=".6" stop-color="#111315"/><stop offset="1" stop-color="#080a0d"/>
+  </radialGradient>
+  <radialGradient id="ember" cx="0" cy="0" r="1">
+    <stop offset="0" stop-color="#fd4e22" stop-opacity=".54"/>
+    <stop offset=".35" stop-color="#b73519" stop-opacity=".22"/>
+    <stop offset="1" stop-color="#8c2111" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ember2" cx="1" cy=".65" r=".7">
+    <stop offset="0" stop-color="#fc471e" stop-opacity=".3"/>
+    <stop offset="1" stop-color="#8c2111" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff"/>
+    <stop offset=".1" stop-color="#e8edf0"/>
+    <stop offset=".2" stop-color="#8f959b"/>
+    <stop offset=".31" stop-color="#fbfdff"/>
+    <stop offset=".44" stop-color="#d9dee1"/>
+    <stop offset=".54" stop-color="#64686e"/>
+    <stop offset=".67" stop-color="#eef2f5"/>
+    <stop offset=".77" stop-color="#9ca2aa"/>
+    <stop offset=".86" stop-color="#474e54"/>
+    <stop offset="1" stop-color="#e5eaef"/>
+  </linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".93"/>
+    <stop offset=".45" stop-color="#d2d9de" stop-opacity=".35"/>
+    <stop offset=".8" stop-color="#080b0e" stop-opacity=".8"/>
+    <stop offset="1" stop-color="#eef1f2" stop-opacity=".65"/>
+  </linearGradient>
+  <linearGradient id="redline" x1="0" x2="1">
+    <stop offset="0" stop-color="#5a1d19" stop-opacity="0"/>
+    <stop offset=".18" stop-color="#bd2412"/>
+    <stop offset=".5" stop-color="#fc4b20"/>
+    <stop offset=".62" stop-color="#ff9c2c"/>
+    <stop offset=".78" stop-color="#ec3719"/>
+    <stop offset="1" stop-color="#742017" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="arc" x1="0" x2="1">
+    <stop offset="0" stop-color="#ed391c"/>
+    <stop offset=".45" stop-color="#fe7b1d"/>
+    <stop offset="1" stop-color="#f2361b"/>
+  </linearGradient>
+  <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="15"/>
+  </filter>
+  <filter id="textShadow" x="-15%" y="-40%" width="130%" height="195%">
+    <feDropShadow dx="0" dy="12" stdDeviation="7" flood-color="#000000" flood-opacity=".92"/>
+    <feDropShadow dx="0" dy="-1" stdDeviation="2" flood-color="#fafafa" flood-opacity=".22"/>
+  </filter>
+  <filter id="specular" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="9"/>
+  </filter>
+  <pattern id="grid" width="191" height="191" patternUnits="userSpaceOnUse">
+    <path d="M191 0H0V191" fill="none" stroke="#98a0a7" stroke-width="1" opacity=".06"/>
+  </pattern>
+</defs>
+
+<rect width="1916" height="821" fill="url(#bg)"/>
+<rect width="1916" height="821" fill="url(#grid)"/>
+<ellipse cx="80" cy="45" rx="550" ry="400" fill="url(#ember)"/>
+<ellipse cx="1880" cy="500" rx="580" ry="300" fill="url(#ember2)"/>
+
+<!-- Technical drafting guides -->
+<g fill="none" stroke="#989da4" stroke-width="1.3" opacity=".17">
+  <path d="M0 515H1916M0 646H1916M1344 0V821M1750 0V821M99 0V821"/>
+  <path d="M99 0V821M0 512H533M1188 0L1916 520M268 0L0 267"/>
+  <circle cx="99" cy="525" r="153"/><circle cx="99" cy="525" r="263"/>
+  <circle cx="1736" cy="-65" r="333"/><circle cx="1736" cy="-65" r="233"/>
+</g>
+<g fill="none" stroke="#b6bbc0" stroke-width="1.4" stroke-dasharray="10 12" opacity=".2">
+  <path d="M99 0V821M0 515H320M1750 0V327"/>
+  <circle cx="99" cy="525" r="206"/>
+  <path d="M1580 0Q1514 150 1645 278"/>
+</g>
+
+<!-- Lava-red border sweeps -->
+<path d="M0 240Q190 89 511 0" fill="none" stroke="#ee411c" stroke-width="28" opacity=".18" filter="url(#glow)"/>
+<path d="M0 240Q190 89 511 0" fill="none" stroke="url(#arc)" stroke-width="2.4"/>
+<path d="M1120 660Q1501 626 1790 439Q1860 395 1916 355" fill="none" stroke="#f63d16" stroke-width="35" opacity=".22" filter="url(#glow)"/>
+<path d="M1120 660Q1501 626 1790 439Q1860 395 1916 355" fill="none" stroke="url(#arc)" stroke-width="2.5"/>
+
+<!-- Brushed metal masthead -->
+<g font-family="'Arial Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="143" font-weight="800" letter-spacing="-3.8">
+  <text x="434" y="315" fill="#07090c" stroke="#050608" stroke-width="5" paint-order="stroke fill" filter="url(#textShadow)">NexSolid Kernel</text>
+  <text x="434" y="311" fill="url(#chrome)" stroke="url(#edge)" stroke-width="2.5" paint-order="stroke fill">NexSolid Kernel</text>
+  <text x="434" y="308" fill="none" stroke="#f8fbff" stroke-width=".75" opacity=".45">NexSolid Kernel</text>
+</g>
+<g fill="#ffffff" opacity=".95">
+  <ellipse cx="721" cy="213" rx="36" ry="3" filter="url(#specular)"/>
+  <ellipse cx="1168" cy="220" rx="27" ry="2" filter="url(#specular)"/>
+</g>
+<path d="M430 355H1498" stroke="url(#redline)" stroke-width="18" filter="url(#glow)" opacity=".58"/>
+<path d="M430 355H1498" stroke="url(#redline)" stroke-width="3"/>
+<path d="M430 356H1498" stroke="#ff9d43" stroke-width=".7" opacity=".66"/>
+
+<!-- Clear, specific project subtitle -->
+<text x="434" y="427"
+  font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font-size="47" font-weight="400" letter-spacing=".25"
+  fill="#06080a" stroke="#06080a" stroke-width="3.2" paint-order="stroke fill">From open source to world-class CAD geometry.</text>
+<text x="434" y="424"
+  font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font-size="47" font-weight="400" letter-spacing=".25"
+  fill="#e1e4e7">From open source to world-class CAD geometry.</text>
+</svg>
