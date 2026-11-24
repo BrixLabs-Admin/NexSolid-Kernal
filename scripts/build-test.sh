@@ -7,7 +7,8 @@ BUILD_DIR="${NEXSOLID_BUILD_DIR:-$ROOT/build}"
 BUILD_TYPE="${NEXSOLID_BUILD_TYPE:-Release}"
 
 echo "==> Configuring NexSolid (${BUILD_TYPE})"
-cmake -S "$ROOT" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
+cmake -S "$ROOT" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
+    -DNEXSOLID_OCCT_ROOT="${NEXSOLID_OCCT_ROOT:-}"
 
 echo "==> Building NexSolid"
 cmake --build "$BUILD_DIR" --config "$BUILD_TYPE" --parallel
