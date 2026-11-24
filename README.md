@@ -1,5 +1,8 @@
 # NexSolid Kernel
 
+![NexSolid Kernel — From open source to world-class CAD geometry](assets/nexsolid-banner.svg)
+
+
 NexSolid Kernel is an early-stage C++ project for exploring a contributor-friendly CAD geometry kernel built on Open CASCADE Technology (OCCT).
 
 > **Status:** starter repository. The project currently contains a minimal OCCT-backed box example and a smoke test. It is not yet a production CAD kernel.
