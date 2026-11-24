@@ -1,0 +1,4 @@
+include README.md CONTRIBUTING.md NOTICE COPYING COPYING.LESSER
+recursive-include tests *.py
+recursive-include scripts *.py
+recursive-include evidence *.json *.md

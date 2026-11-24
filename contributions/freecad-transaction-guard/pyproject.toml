@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "freecad-transaction-guard"
+version = "0.1.0"
+description = "Single-owner checkpointed FreeCAD document edits with native regression tests"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "LGPL-2.1-or-later"}
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+license-files = ["COPYING", "COPYING.LESSER", "NOTICE"]

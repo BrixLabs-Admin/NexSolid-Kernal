@@ -1,0 +1,16 @@
+FreeCAD Transaction Guard
+
+Derived from the Neutron 101 project's Forma/bridge.py transaction wrapper,
+which carries SPDX-License-Identifier: LGPL-2.1-or-later. The original fix was
+the removal of nested transaction management from Forma/edge_ops.py. This
+standalone extraction adds application-level ownership checks, fail-closed
+recovery, explicit callback contracts and native regression tests.
+
+The implementation and tests in this package are distributed under
+LGPL-2.1-or-later. See COPYING.LESSER and COPYING. License texts are reproduced
+unchanged from FreeCAD's bundled AddonManager license resources.
+
+FreeCAD and Open CASCADE Technology are separate upstream projects. Their
+binaries and implementation source are not included here. This package is not
+an upstream FreeCAD/OCCT patch and does not imply endorsement by those projects.
+No proprietary CAD code, user models, credentials or model weights are included.

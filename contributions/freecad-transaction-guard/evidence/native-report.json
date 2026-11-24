@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "freecad": [
+    "1",
+    "1",
+    "4",
+    "20260928 (Git shallow)",
+    "Unknown",
+    "2026/09/28 13:46:34",
+    "(HEAD detached at 4fd3bf320)",
+    "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+  ],
+  "occt": "7.8.1",
+  "checks": [
+    "negative control reproduces nested-helper commit leakage",
+    "fillet: late-failure rollback, checkpoint reopen, one-step undo/redo",
+    "chamfer: late-failure rollback, checkpoint reopen, one-step undo/redo",
+    "foreign lazy transaction refused without closing it",
+    "KeyboardInterrupt and SystemExit roll back native edits",
+    "nested guard instance refused",
+    "worker-thread entry refused before native access",
+    "checkpoint I/O failure prevents callback execution",
+    "no-op closes lazy transaction without an undo entry",
+    "ownership loss surfaces recovery checkpoint and blocks every guard",
+    "abort failure retains both exceptions and checkpoint; new guard blocked"
+  ],
+  "gui_imported": false,
+  "abort_failure": {
+    "passed": true,
+    "freecad": [
+      "1",
+      "1",
+      "4",
+      "20260928 (Git shallow)",
+      "Unknown",
+      "2026/09/28 13:46:34",
+      "(HEAD detached at 4fd3bf320)",
+      "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+    ],
+    "occt": "7.8.1",
+    "checks": [
+      "abort failure retains both exceptions and checkpoint; new guard blocked"
+    ],
+    "gui_imported": false
+  },
+  "source_sha256": {
+    "scripts/check.py": "9ad65b12807bd356aeb7810fe8d2637f86d2df98182f17aa94f15fa4bcee5c24",
+    "src/freecad_transaction_guard/__init__.py": "d101efc0315804034e341e01db6c264a2b4dca976065d006c3251f82eedb9b52",
+    "src/freecad_transaction_guard/guard.py": "f973ef83fe0da5100ee9914f9325691827cf424883bc6271bb9d7d1ea4dbc310",
+    "tests/native_suite.py": "6197bd02d58206ebd0debac8a0ad3fc10bf779d93a514e49d0e4391910388844"
+  }
+}

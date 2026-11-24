@@ -1,0 +1,9 @@
+.build/
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.py[cod]
+*.FCStd
+*.FCStd1
+.DS_Store
