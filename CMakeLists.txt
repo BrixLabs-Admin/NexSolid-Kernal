@@ -15,7 +15,7 @@ set(NEXSOLID_OCCT_ROOT "" CACHE PATH
 
 set(NEXSOLID_OCCT_TOOLKITS
     TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep
-    TKGeomAlgo TKTopAlgo TKPrim
+    TKGeomAlgo TKTopAlgo TKPrim TKBO TKShHealing
 )
 
 if(NEXSOLID_OCCT_ROOT)
@@ -78,7 +78,10 @@ if(NEXSOLID_OCCT_ROOT)
     message(STATUS "NexSolid isolated OCCT prefix: ${NEXSOLID_OCCT_ROOT}")
 endif()
 
-add_library(nexsolid_kernel src/Kernel.cpp)
+add_library(nexsolid_kernel
+    src/Kernel.cpp
+    src/Diagnostics.cpp
+)
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
 target_compile_features(nexsolid_kernel PUBLIC cxx_std_17)
@@ -96,4 +99,9 @@ if(BUILD_TESTING)
     add_executable(nexsolid_kernel_tests tests/test_kernel.cpp)
     target_link_libraries(nexsolid_kernel_tests PRIVATE NexSolid::Kernel)
     add_test(NAME kernel_smoke COMMAND nexsolid_kernel_tests)
+
+    add_executable(nexsolid_diagnostics_tests tests/test_diagnostics.cpp)
+    target_link_libraries(nexsolid_diagnostics_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME diagnostics COMMAND nexsolid_diagnostics_tests)
+    set_tests_properties(diagnostics PROPERTIES TIMEOUT 120)
 endif()
