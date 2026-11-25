@@ -15,7 +15,7 @@ set(NEXSOLID_OCCT_ROOT "" CACHE PATH
 
 set(NEXSOLID_OCCT_TOOLKITS
     TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep
-    TKGeomAlgo TKTopAlgo TKPrim
+    TKGeomAlgo TKTopAlgo TKPrim TKBO TKXSBase TKSTEP
 )
 
 if(NEXSOLID_OCCT_ROOT)
@@ -47,9 +47,14 @@ endif()
 
 set(NEXSOLID_OCCT_LIBRARIES)
 foreach(toolkit IN LISTS NEXSOLID_OCCT_TOOLKITS)
+    # OCCT 7.8+ consolidates the legacy STEP toolkits into TKDESTEP.
+    set(toolkit_names ${toolkit})
+    if(toolkit STREQUAL "TKSTEP")
+        set(toolkit_names TKDESTEP TKSTEP)
+    endif()
     if(NEXSOLID_OCCT_ROOT)
         find_library(NEXSOLID_OCCT_${toolkit}_LIBRARY
-            NAMES ${toolkit}
+            NAMES ${toolkit_names}
             HINTS
                 "${NEXSOLID_OCCT_ROOT}/lib"
                 "${NEXSOLID_OCCT_ROOT}/lib64"
@@ -58,14 +63,14 @@ foreach(toolkit IN LISTS NEXSOLID_OCCT_TOOLKITS)
         )
     else()
         find_library(NEXSOLID_OCCT_${toolkit}_LIBRARY
-            NAMES ${toolkit}
+            NAMES ${toolkit_names}
             HINTS ${OpenCASCADE_LIBRARY_DIR}
         )
     endif()
     if(NOT NEXSOLID_OCCT_${toolkit}_LIBRARY)
         message(FATAL_ERROR
             "OCCT toolkit ${toolkit} not found. Install Foundation, "
-            "Modeling Data and Modeling Algorithms development packages, "
+            "Modeling Data, Modeling Algorithms and Data Exchange development packages, "
             "or provide a complete installation with NEXSOLID_OCCT_ROOT.")
     endif()
     list(APPEND NEXSOLID_OCCT_LIBRARIES
@@ -78,7 +83,10 @@ if(NEXSOLID_OCCT_ROOT)
     message(STATUS "NexSolid isolated OCCT prefix: ${NEXSOLID_OCCT_ROOT}")
 endif()
 
-add_library(nexsolid_kernel src/Kernel.cpp)
+add_library(nexsolid_kernel
+    src/Kernel.cpp
+    src/StepIO.cpp
+)
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
 target_compile_features(nexsolid_kernel PUBLIC cxx_std_17)
@@ -96,4 +104,9 @@ if(BUILD_TESTING)
     add_executable(nexsolid_kernel_tests tests/test_kernel.cpp)
     target_link_libraries(nexsolid_kernel_tests PRIVATE NexSolid::Kernel)
     add_test(NAME kernel_smoke COMMAND nexsolid_kernel_tests)
+
+    add_executable(nexsolid_step_io_tests tests/test_step_io.cpp)
+    target_link_libraries(nexsolid_step_io_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME step_io COMMAND nexsolid_step_io_tests)
+    set_tests_properties(step_io PROPERTIES TIMEOUT 120)
 endif()
