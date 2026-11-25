@@ -23,7 +23,8 @@ jobs:
             build-essential cmake \
             libocct-foundation-dev \
             libocct-modeling-data-dev \
-            libocct-modeling-algorithms-dev
+            libocct-modeling-algorithms-dev \
+            libocct-data-exchange-dev
 
       - name: Build and test
         run: bash scripts/build-test.sh
