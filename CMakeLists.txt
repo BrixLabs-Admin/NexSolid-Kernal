@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(NexSolidKernel
-    VERSION 0.1.0
+    VERSION 1.1.0
     DESCRIPTION "An early-stage CAD geometry kernel starter built on OCCT"
     LANGUAGES CXX
 )
@@ -78,7 +78,10 @@ if(NEXSOLID_OCCT_ROOT)
     message(STATUS "NexSolid isolated OCCT prefix: ${NEXSOLID_OCCT_ROOT}")
 endif()
 
-add_library(nexsolid_kernel src/Kernel.cpp)
+add_library(nexsolid_kernel
+    src/Kernel.cpp
+    src/Properties.cpp
+)
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
 target_compile_features(nexsolid_kernel PUBLIC cxx_std_17)
@@ -96,4 +99,9 @@ if(BUILD_TESTING)
     add_executable(nexsolid_kernel_tests tests/test_kernel.cpp)
     target_link_libraries(nexsolid_kernel_tests PRIVATE NexSolid::Kernel)
     add_test(NAME kernel_smoke COMMAND nexsolid_kernel_tests)
+
+    add_executable(nexsolid_properties_tests tests/test_properties.cpp)
+    target_link_libraries(nexsolid_properties_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME properties COMMAND nexsolid_properties_tests)
+    set_tests_properties(properties PROPERTIES TIMEOUT 120)
 endif()
