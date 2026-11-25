@@ -1,9 +1,15 @@
 #include "nexsolid/Kernel.hpp"
 
+#include <BRepAlgoAPI_Cut.hxx>
 #include <BRepCheck_Analyzer.hxx>
 #include <BRepGProp.hxx>
 #include <BRepPrimAPI_MakeBox.hxx>
+#include <BRepPrimAPI_MakeCylinder.hxx>
 #include <GProp_GProps.hxx>
+#include <TopTools_ListOfShape.hxx>
+#include <gp_Ax2.hxx>
+#include <gp_Dir.hxx>
+#include <gp_Pnt.hxx>
 
 #include <stdexcept>
 
@@ -14,6 +20,26 @@ TopoDS_Shape makeBox(double x, double y, double z) {
         throw std::invalid_argument("Box dimensions must be positive.");
     }
     return BRepPrimAPI_MakeBox(x, y, z).Shape();
+}
+
+TopoDS_Shape makeBoxWithCylindricalHole() {
+    const TopoDS_Shape box = BRepPrimAPI_MakeBox(10.0, 10.0, 10.0).Shape();
+    const gp_Ax2 axis(gp_Pnt(5.0, 5.0, 0.0), gp_Dir(0.0, 0.0, 1.0));
+    const TopoDS_Shape cylinder = BRepPrimAPI_MakeCylinder(axis, 2.0, 10.0).Shape();
+
+    TopTools_ListOfShape arguments;
+    arguments.Append(box);
+    TopTools_ListOfShape tools;
+    tools.Append(cylinder);
+
+    BRepAlgoAPI_Cut cut;
+    cut.SetArguments(arguments);
+    cut.SetTools(tools);
+    cut.Build();
+    if (!cut.IsDone()) {
+        throw std::runtime_error("Box-cylinder Boolean cut failed.");
+    }
+    return cut.Shape();
 }
 
 bool isValid(const TopoDS_Shape& shape) {

@@ -15,7 +15,7 @@ set(NEXSOLID_OCCT_ROOT "" CACHE PATH
 
 set(NEXSOLID_OCCT_TOOLKITS
     TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep
-    TKGeomAlgo TKTopAlgo TKPrim
+    TKGeomAlgo TKTopAlgo TKPrim TKBO
 )
 
 if(NEXSOLID_OCCT_ROOT)
@@ -96,4 +96,8 @@ if(BUILD_TESTING)
     add_executable(nexsolid_kernel_tests tests/test_kernel.cpp)
     target_link_libraries(nexsolid_kernel_tests PRIVATE NexSolid::Kernel)
     add_test(NAME kernel_smoke COMMAND nexsolid_kernel_tests)
+
+    add_executable(nexsolid_boolean_cut_tests tests/test_boolean_cut.cpp)
+    target_link_libraries(nexsolid_boolean_cut_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME boolean_cut COMMAND nexsolid_boolean_cut_tests)
 endif()
