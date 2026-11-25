@@ -2,7 +2,6 @@ name: Build and test
 
 on:
   push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -11,7 +10,8 @@ permissions:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -23,16 +23,8 @@ jobs:
             build-essential cmake \
             libocct-foundation-dev \
             libocct-modeling-data-dev \
-            libocct-modeling-algorithms-dev
+            libocct-modeling-algorithms-dev \
+            libocct-data-exchange-dev
 
-      - name: Configure
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build
-        run: cmake --build build --parallel
-
-      - name: Test
-        run: ctest --test-dir build --output-on-failure
-
-      - name: Validate contributor quickstart
+      - name: Build and test
         run: bash scripts/build-test.sh
