@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(NexSolidKernel
-    VERSION 0.1.0
+    VERSION 1.1.0
     DESCRIPTION "An early-stage CAD geometry kernel starter built on OCCT"
     LANGUAGES CXX
 )
@@ -87,6 +87,7 @@ add_library(nexsolid_kernel
     src/Kernel.cpp
     src/StepIO.cpp
     src/Diagnostics.cpp
+    src/Properties.cpp
 )
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
@@ -115,4 +116,9 @@ if(BUILD_TESTING)
     target_link_libraries(nexsolid_diagnostics_tests PRIVATE NexSolid::Kernel)
     add_test(NAME diagnostics COMMAND nexsolid_diagnostics_tests)
     set_tests_properties(diagnostics PROPERTIES TIMEOUT 120)
+
+    add_executable(nexsolid_properties_tests tests/test_properties.cpp)
+    target_link_libraries(nexsolid_properties_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME properties COMMAND nexsolid_properties_tests)
+    set_tests_properties(properties PROPERTIES TIMEOUT 120)
 endif()

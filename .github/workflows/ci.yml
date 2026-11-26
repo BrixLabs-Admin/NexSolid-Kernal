@@ -28,3 +28,65 @@ jobs:
 
       - name: Build and test
         run: bash scripts/build-test.sh
+
+  publish-v1-1:
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the tested commit
+        uses: actions/checkout@v4
+
+      - name: Publish v1.1 once after successful Linux validation
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const cmake = fs.readFileSync('CMakeLists.txt', 'utf8');
+            if (!/VERSION\s+1\.1\.0\b/.test(cmake)) {
+              core.notice('This commit is not the v1.1.0 release.');
+              return;
+            }
+            const { owner, repo } = context.repo;
+            const tag = 'v1.1';
+            try {
+              await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              core.notice('v1.1 already exists; leaving the published release unchanged.');
+              return;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            for (const file of [
+              'include/nexsolid/StepIO.hpp',
+              'include/nexsolid/Diagnostics.hpp',
+              'include/nexsolid/Properties.hpp'
+            ]) {
+              if (!fs.existsSync(file)) throw new Error('Release module missing: ' + file);
+            }
+            try {
+              await github.rest.git.getRef({ owner, repo, ref: 'tags/' + tag });
+              throw new Error('v1.1 tag already exists without a release; refusing to retarget it.');
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            const result = await github.rest.repos.createRelease({
+              owner, repo, tag_name: tag, target_commitish: context.sha,
+              name: 'NexSolid Kernel v1.1',
+              body: [
+                'C++17 kernel utilities verified together on ubuntu-latest with packaged OCCT.',
+                '',
+                '- STEP geometry import/export with round-trip and invalid-file tests.',
+                '- Unique topology counts, tolerance diagnostics and copy-based shape repair.',
+                '- Deterministic geometric sub-shape ordering with explicit ambiguity reporting.',
+                '- Volume, surface area, unique edge length, center of mass and principal inertia.',
+                '',
+                'Linux CI passed on the exact release commit before publication.',
+                'Source release; no prebuilt binaries. This remains an early-stage kernel wrapper.',
+                'Geometric ordering is not persistent topological naming; repair and exchange have documented limits.'
+              ].join('\n'),
+              draft: false,
+              prerelease: false
+            });
+            core.notice('Published ' + result.data.html_url);
