@@ -15,7 +15,7 @@ set(NEXSOLID_OCCT_ROOT "" CACHE PATH
 
 set(NEXSOLID_OCCT_TOOLKITS
     TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep
-    TKGeomAlgo TKTopAlgo TKPrim TKBO TKXSBase TKSTEP TKShHealing
+    TKGeomAlgo TKTopAlgo TKPrim TKBO TKXSBase TKSTEP TKShHealing TKFillet
 )
 
 if(NEXSOLID_OCCT_ROOT)
@@ -88,6 +88,7 @@ add_library(nexsolid_kernel
     src/StepIO.cpp
     src/Diagnostics.cpp
     src/Properties.cpp
+    src/EdgeTreatments.cpp
 )
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
@@ -121,4 +122,9 @@ if(BUILD_TESTING)
     target_link_libraries(nexsolid_properties_tests PRIVATE NexSolid::Kernel)
     add_test(NAME properties COMMAND nexsolid_properties_tests)
     set_tests_properties(properties PROPERTIES TIMEOUT 120)
+
+    add_executable(nexsolid_edge_treatments_tests tests/test_edge_treatments.cpp)
+    target_link_libraries(nexsolid_edge_treatments_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME edge_treatments COMMAND nexsolid_edge_treatments_tests)
+    set_tests_properties(edge_treatments PROPERTIES TIMEOUT 120)
 endif()
