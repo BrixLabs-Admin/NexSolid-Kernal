@@ -88,6 +88,7 @@ add_library(nexsolid_kernel
     src/StepIO.cpp
     src/Diagnostics.cpp
     src/Properties.cpp
+    src/Boolean.cpp
 )
 add_library(NexSolid::Kernel ALIAS nexsolid_kernel)
 
@@ -121,4 +122,9 @@ if(BUILD_TESTING)
     target_link_libraries(nexsolid_properties_tests PRIVATE NexSolid::Kernel)
     add_test(NAME properties COMMAND nexsolid_properties_tests)
     set_tests_properties(properties PROPERTIES TIMEOUT 120)
+
+    add_executable(nexsolid_boolean_operations_tests tests/test_boolean_operations.cpp)
+    target_link_libraries(nexsolid_boolean_operations_tests PRIVATE NexSolid::Kernel)
+    add_test(NAME boolean_operations COMMAND nexsolid_boolean_operations_tests)
+    set_tests_properties(boolean_operations PROPERTIES TIMEOUT 120)
 endif()
