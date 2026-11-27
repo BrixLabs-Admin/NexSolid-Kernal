@@ -167,12 +167,23 @@ int main() {
         TopExp_Explorer faces(a, TopAbs_FACE);
         const auto face = faces.Current();
         const auto selfInterfering = compound(a, box(5.0));
+        const auto mixedDimensions = compound(a, face);
+        // BRep_Builder::Add freezes component topology. Construct all fixtures
+        // before recording baselines so only API calls are measured below.
+        const auto beforeFailures = snapshot(a);
         const auto badSnapshot = snapshot(selfInterfering);
         for (Operation op : {Operation::Fuse, Operation::Cut, Operation::Common}) {
-            for (const auto& bad : {TopoDS_Shape(), face, compound(a, face),
+            for (const auto& bad : {TopoDS_Shape(), face, mixedDimensions,
                                    TopoDS_Shape(emptySolid), a.Reversed(), selfInterfering}) {
+                const auto beforeBad = bad.IsNull() ? std::string{} : snapshot(bad);
                 invalid([&] { nexsolid::performBoolean(bad, a, op); }, "left operand");
+                require(snapshot(a) == beforeFailures &&
+                        (bad.IsNull() || snapshot(bad) == beforeBad),
+                        "Rejecting a left operand modified input");
                 invalid([&] { nexsolid::performBoolean(a, bad, op); }, "right operand");
+                require(snapshot(a) == beforeFailures &&
+                        (bad.IsNull() || snapshot(bad) == beforeBad),
+                        "Rejecting a right operand modified input");
             }
             for (double tolerance : {-1.0, std::numeric_limits<double>::quiet_NaN(),
                                       std::numeric_limits<double>::infinity()}) {
@@ -183,7 +194,7 @@ int main() {
         // A bad operand must not be silently accepted via the empty-set shortcut.
         invalid([&] { nexsolid::performBoolean(empty, selfInterfering, Operation::Common); },
                 "right operand");
-        require(snapshot(selfInterfering) == badSnapshot && snapshot(a) == beforeA,
+        require(snapshot(selfInterfering) == badSnapshot && snapshot(a) == beforeFailures,
                 "Failure handling modified an input");
         matrix("success after rejected input", a, box(5.0), 500.0);
         std::cout << "Boolean operation matrix, empty sets, interference rejection and recovery passed.\n";
