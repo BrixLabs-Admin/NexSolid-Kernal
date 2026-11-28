@@ -1,76 +1,84 @@
 # Getting Started
 
-This guide builds the NexSolid C++ starter, runs its CLI demo, and checks its automated tests.
+Build the NexSolid C++17 OCCT-backed project, run its CLI demo and execute all four registered CTest suites. The project is early-stage; these focused tests are not broad certification of a CAD geometry engine.
 
-## Verified build environment
+## Build environment
 
-- Ubuntu **22.04**, CMake 3.20+, and a C++17 compiler
-- OCCT **Foundation**, **Modeling Data** and **Modeling Algorithms** development libraries
-- Git and a shell (Bash for the one-command helper)
+GitHub Actions currently targets **`ubuntu-latest`** with CMake, a C++17 compiler and OCCT development packages. macOS and Windows are not currently covered by CI. The exact Ubuntu image can change; see [the workflow](../.github/workflows/ci.yml) for the current configuration.
 
-The GitHub Actions build uses Ubuntu 22.04 and its OCCT development packages. macOS and Windows are not yet continuously tested.
+Install dependencies on a supported Ubuntu environment:
 
-### Ubuntu dependencies
-
-```sh
+```bash
 sudo apt update
 sudo apt install -y build-essential cmake git \
-  libocct-foundation-dev libocct-modeling-data-dev libocct-modeling-algorithms-dev
+  libocct-foundation-dev libocct-modeling-data-dev \
+  libocct-modeling-algorithms-dev libocct-data-exchange-dev
 ```
 
-The distribution's OCCT libraries may have no `OpenCASCADEConfig.cmake` file. NexSolid supports discovering the installed headers and toolkits directly.
+OCCT's STEP libraries are required for the new STEP tests. On newer OCCT builds the STEP toolkit is named `TKDESTEP` rather than `TKSTEP`; CMake searches for both. Some distributions do not provide `OpenCASCADEConfig.cmake`, so NexSolid can also find the libraries directly.
 
-## One command to build, test and run
+## Get the source and run everything
 
-From the repository root:
-
-```sh
+```bash
+git clone https://github.com/BrixLabs-Admin/NexSolid-Kernal.git
+cd NexSolid-Kernal
 bash scripts/build-test.sh
 ```
 
-This configures the project, compiles it, runs CTest and launches `nexsolid_demo`. A test failure causes the script to stop with a nonzero exit code.
+This performs configuration, compilation, CTest and the `nexsolid_demo` CLI. A failing build/test stops the script with a nonzero exit code.
 
-To debug a change:
+To build and test manually:
 
-```sh
-NEXSOLID_BUILD_TYPE=Debug bash scripts/build-test.sh
-```
-
-To run each stage separately:
-
-```sh
+```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 ctest --test-dir build --output-on-failure
 ./build/nexsolid_demo
 ```
 
-The demo creates a 10 × 20 × 30 box through OCCT and prints its volume. The smoke test verifies shape validity, volume 6000, and rejection of one invalid dimension. **These tests do not yet cover Booleans, fillets, advanced topology, or the internals of modified OCCT**. Expanding CLI regression testing is tracked in [issue #19](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues/19).
+A Debug build:
 
-## Testing a modified OCCT engine
-
-**Important distinction:** NexSolid currently contains a small OCCT-backed wrapper and tests, **not** the entire OCCT source tree. Editing `src/Kernel.cpp` changes NexSolid's wrapper. To alter OCCT's own algorithms, obtain the full OCCT source separately, patch it, build it, and install the patched libraries to a dedicated directory.
-
-To test the installed patched libraries, run:
-
-```sh
-NEXSOLID_OCCT_ROOT=/absolute/path/to/patched-occt-install bash scripts/build-test.sh
+```bash
+NEXSOLID_BUILD_TYPE=Debug bash scripts/build-test.sh
 ```
 
-NexSolid will search for OCCT headers and toolkits **only inside that prefix**, rather than silently using system OCCT. Check the `NexSolid OCCT headers` and `NexSolid OCCT toolkits` lines during configuration to confirm the paths. **Use a fresh build directory when changing OCCT installations**, because CMake caches library paths:
+## What gets tested?
 
-```sh
+| CTest case | What it covers |
+| --- | --- |
+| `kernel_smoke` | Basic primitive box, validity, volume and zero-dimension rejection |
+| `step_io` | Drilled-box and compound STEP round-trips, volume/face/bounds invariants, missing/corrupt/empty inputs |
+| `diagnostics` | Unique topology counts, tolerance ranges, safe copy repair of valid shapes and invalid repair-parameter rejection |
+| `properties` | Analytical mass properties, geometric indexing consistency and ambiguous-key reporting |
+
+Run one test group:
+
+```bash
+ctest --test-dir build --output-on-failure -R '^step_io$'
+```
+
+Read [Progress & evidence](PROGRESS_EVIDENCE.md) for precise before-and-after capability examples and code links. Note that the drilled-box Boolean is produced by OCCT for the test fixture; the test does not prove a new NexSolid Boolean algorithm or recovery of arbitrary invalid geometry.
+
+## Testing separately built, modified OCCT
+
+**NexSolid currently depends on OCCT and does not embed its complete source tree.** To test OCCT source patches, install a patched OCCT build to a dedicated prefix and point NexSolid to it:
+
+```bash
 NEXSOLID_BUILD_DIR="$PWD/build-patched" \
 NEXSOLID_OCCT_ROOT=/absolute/path/to/patched-occt-install \
 bash scripts/build-test.sh
 ```
 
-Add a reproducible test for the behavior you changed. Passing the current box test alone does not demonstrate that an OCCT algorithm bug is fixed.
+When `NEXSOLID_OCCT_ROOT` is set, the build searches only inside that prefix. Check the `NexSolid OCCT headers` and `NexSolid OCCT toolkits` output to verify the dependency paths. Use a new build directory for each OCCT installation because CMake caches library selections.
 
 ## Troubleshooting
 
-- **OCCT headers/toolkits missing:** install the three development packages above or pass `NEXSOLID_OCCT_ROOT` to a complete installation.
-- **Unexpected OCCT installation used:** review the CMake configuration output; use a fresh build directory and `NEXSOLID_OCCT_ROOT` for isolated patched builds.
-- **Compilation or linker failure:** include the compiler error, platform, OCCT version, and the two printed OCCT paths in your issue.
-- **Windows:** the demo commonly appears under `build\\Release\\nexsolid_demo.exe` with multi-configuration generators. Native Windows CI is not yet available.
-- **CLI output not as expected:** run `ctest --test-dir build --output-on-failure` and include the failing test output in your bug report.
+- **Missing OCCT components:** Install all four development packages listed above. STEP tests require Data Exchange.
+- **Wrong OCCT version selected:** Use a fresh build directory and `NEXSOLID_OCCT_ROOT`, and inspect CMake's resolved dependency paths.
+- **Compiler/linker errors:** Record OS, compiler, CMake and OCCT version, relevant terminal output and the exact toolkit found.
+- **STEP test fails:** Keep the error output and the failing test name; do not assume this demonstrates an algorithm improvement or regression without a controlled comparison.
+- **macOS/Windows:** Not verified in current CI. On multi-configuration Windows generators, the demo may be under `build/Release/nexsolid_demo.exe` and requires corresponding OCCT runtime libraries on the search path.
+
+## Want to contribute?
+
+Read [the first contribution guide](FIRST_CONTRIBUTION.md), [CONTRIBUTING](../CONTRIBUTING.md), and browse [issues](https://github.com/BrixLabs-Admin/NexSolid-Kernal/issues). AI development help is optional; see [AI contributor guidance](AI_CONTRIBUTIONS.md).
